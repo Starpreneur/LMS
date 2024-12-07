@@ -3,6 +3,8 @@ package com.LMS.LibraryManagementSystem.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -24,5 +26,9 @@ public class Book {
     private Category category;
 
     private String status;
+
+    @OneToMany
+    @JoinColumn(name = "issued_id")
+    private List<IssuedBooks> issuedBooks;
 
 }
