@@ -14,7 +14,7 @@ public class BookDTO {
     private String publisher;
     private String language;
     private int numOfPages;
-    private int categoryId;
+    private String category;
     private String status;
 
 }
