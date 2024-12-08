@@ -21,8 +21,9 @@ public class Book {
     private String publisher;
     private String language;
     private int numOfPages;
+    private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
     private Category category;
 

@@ -1,19 +1,22 @@
-package com.LMS.LibraryManagementSystem.DTO;
+package com.LMS.LibraryManagementSystem.DTO.Response;
+
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookDTO {
+@Builder
+public class BookResponse {
     private String isbn;
     private String author;
     private String publisher;
     private String language;
     private int numOfPages;
-    private String category;
-    private String status;
     private String name;
+    private String Category;
+    private String status;
 }

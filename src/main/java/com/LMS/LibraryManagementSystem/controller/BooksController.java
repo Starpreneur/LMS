@@ -1,16 +1,14 @@
 package com.LMS.LibraryManagementSystem.controller;
 
 import com.LMS.LibraryManagementSystem.DTO.BookDTO;
+import com.LMS.LibraryManagementSystem.DTO.Response.BookResponse;
 import com.LMS.LibraryManagementSystem.model.Book;
 import com.LMS.LibraryManagementSystem.repository.BookRepository;
 import com.LMS.LibraryManagementSystem.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +29,16 @@ public class BooksController {
                return new ResponseEntity<>("Internal Server Error",HttpStatus.INTERNAL_SERVER_ERROR);
         }else {
             return new ResponseEntity<>("Please Send a list of Books",HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/findBookByName/{name}")
+    public ResponseEntity<BookResponse> findBookByName(@PathVariable String name){
+        BookResponse bookResponse = bookService.findBookByName(name);
+        if (bookResponse != null){
+            return new ResponseEntity<>(bookResponse,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(bookResponse,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
