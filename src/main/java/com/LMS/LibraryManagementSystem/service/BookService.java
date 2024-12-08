@@ -68,5 +68,31 @@ public class BookService {
         return response;
     }
 
+    public List<BookResponse> findBooksByAuthor(String author){
+        List<BookResponse> booksByAuthor = new ArrayList<>();
+        try{
+            Optional<List<Book>> optionalBooks = bookRepository.findByAuthor(author);
+            if (optionalBooks.isPresent()){
+                List<Book> books = optionalBooks.get();
+                books.forEach(book -> {
+                            BookResponse bookResponse = new BookResponse();
+                            mapToBookResponse(bookResponse,book);
+                            booksByAuthor.add(bookResponse);
+                        });
+            }
+        }catch (Exception e){
+            System.out.println("Exception occured : "+e.getMessage());
+        }
+        return booksByAuthor;
+    }
 
+    public void mapToBookResponse(BookResponse bookResponse,Book book){
+        bookResponse.setAuthor(book.getAuthor());
+        bookResponse.setIsbn(book.getIsbn());
+        bookResponse.setName(book.getName());
+        bookResponse.setLanguage(book.getLanguage());
+        bookResponse.setCategory(book.getCategory().getName());
+        bookResponse.setPublisher(book.getPublisher());
+        bookResponse.setStatus(book.getStatus());
+    }
 }

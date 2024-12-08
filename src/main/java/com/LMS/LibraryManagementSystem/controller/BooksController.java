@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -39,6 +40,16 @@ public class BooksController {
             return new ResponseEntity<>(bookResponse,HttpStatus.OK);
         }else{
             return new ResponseEntity<>(bookResponse,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/findBooksByAuthor/{author}")
+    public ResponseEntity<List<BookResponse>> findBooksByAuthor(@PathVariable String author){
+        List<BookResponse> booksByAuthor = bookService.findBooksByAuthor(author);
+        if (!booksByAuthor.isEmpty()){
+            return new ResponseEntity<>(booksByAuthor,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(booksByAuthor,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
