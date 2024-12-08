@@ -3,6 +3,7 @@ package com.LMS.LibraryManagementSystem.controller;
 import com.LMS.LibraryManagementSystem.DTO.BookDTO;
 import com.LMS.LibraryManagementSystem.DTO.Response.BookResponse;
 import com.LMS.LibraryManagementSystem.model.Book;
+import com.LMS.LibraryManagementSystem.model.Users;
 import com.LMS.LibraryManagementSystem.repository.BookRepository;
 import com.LMS.LibraryManagementSystem.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,21 @@ public class BooksController {
         }else{
             return new ResponseEntity<>(booksByAuthor,HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/findAllBooks")
+    public ResponseEntity<List<BookResponse>> findAllBooks(){
+        List<BookResponse> listOfAllBooks = bookService.findAllBooks();
+        if (!listOfAllBooks.isEmpty()){
+            return new ResponseEntity<>(listOfAllBooks,HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(listOfAllBooks,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/issueBook/{userId}/{bookName}")
+    public ResponseEntity<String> issueBook(@PathVariable Long userId,@PathVariable String bookName){
+        String bookIssuedMessage = bookService.issueBookService(userId,bookName);
+        return new ResponseEntity<>(bookIssuedMessage,HttpStatus.OK);
     }
 }

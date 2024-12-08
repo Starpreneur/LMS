@@ -28,6 +28,8 @@ public class Book {
     private Category category;
 
     private String status;
+    @Column(nullable = false)
+    private int quantity;
 
     @OneToMany
     @JoinColumn(name = "issued_id")
