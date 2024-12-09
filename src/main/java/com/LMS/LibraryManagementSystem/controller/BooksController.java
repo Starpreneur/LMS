@@ -70,4 +70,11 @@ public class BooksController {
         return new ResponseEntity<>(bookIssuedMessage,HttpStatus.OK);
     }
 
+
+    @PostMapping("/returnBook/{userId}/{bookName}")
+    public ResponseEntity<String> returnBook(@PathVariable Long userId,@PathVariable String bookName){
+        String bookReturnedMessage = bookService.returnBook(userId,bookName);
+        return new ResponseEntity<>(bookReturnedMessage,HttpStatus.OK);
+    }
+
 }

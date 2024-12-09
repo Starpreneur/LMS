@@ -133,18 +133,16 @@ public class BookService {
         if (issuedBooks.size() > 5)
             return "User has already 5 books issued";
 
-
+        //fetch list of issued books to the user
         List<IssuedBooks> list = new ArrayList<>();
         for (Long issuedBook : issuedBooks){
            Optional<IssuedBooks> issuedBooks1 = issuedBooksRepository.findById(issuedBook);
-           if (issuedBooks1.isPresent()){
-               list.add(issuedBooks1.get());
-           }
+            issuedBooks1.ifPresent(list::add);
         }
 
         //Check for overDue or unpaid fine
         for (IssuedBooks issuedBook : list){
-            boolean isOverDue = checkOverDue(issuedBook.getReturnDate(),issuedBook);
+            boolean isOverDue = checkOverDue(issuedBook);
             if (isOverDue)
                 return "Book is OverDue for User or Unpaid Fine,Please return the book at earliest or pay the fine";
         }
@@ -166,7 +164,7 @@ public class BookService {
     }
 
 
-    public boolean checkOverDue(LocalDate returnDate,IssuedBooks issuedBook){
+    public boolean checkOverDue(IssuedBooks issuedBook){
        LocalDate currentDate = LocalDate.now();
 
        if (currentDate.isAfter(issuedBook.getReturnDate()) || issuedBook.getStatus().equals("OverDue")
@@ -182,11 +180,6 @@ public class BookService {
        }
        return false;
     }
-//
-//    public List<Integer> returnIssuedBookIds(String issuedBooks){
-//
-//
-//    }
 
     public void addIssuedBook(IssuedBooks issuedBook,Book book,Users user){
         issuedBook.setBookId(book);
@@ -196,6 +189,9 @@ public class BookService {
         issuedBook.setStatus("Issued");
         issuedBook.setFine(0.0);
         book.setQuantity(book.getQuantity()-1);
+        if (book.getQuantity() <= 0){
+            book.setStatus("Issued");
+        }
         bookRepository.save(book);
         IssuedBooks saved = issuedBooksRepository.save(issuedBook);
 
@@ -241,4 +237,62 @@ public class BookService {
         }
         return new ArrayList<>();
     }
+
+    public String returnBook(long userId,String book){
+
+        //validate the user
+        Optional<Users> usersOptional = userRepository.findById(userId);
+        Users user = new Users();
+        if (usersOptional.isPresent()){
+           user = usersOptional.get();
+        }else{
+            return "User is not in the system";
+        }
+
+        //validate the book
+        Optional<Book> bookOptional = bookRepository.findByName(book);
+        Book bookIssued = new Book();
+        if (bookOptional.isPresent())
+            bookIssued = bookOptional.get();
+        else
+            return "Book is not in the system";
+
+        //Validate whether book is issued to User
+        String issuedBooks = user.getIssuedBooks();
+        List<Long> ids = convertStringToList(issuedBooks);
+        List<IssuedBooks> issuedBooksList = new ArrayList<>();
+        IssuedBooks issuedBookRecord = new IssuedBooks();
+        for (long id : ids){
+            Optional<IssuedBooks> issuedBooks1 = issuedBooksRepository.findById(id);
+            issuedBooks1.ifPresent(issuedBooksList::add);
+        }
+        List<Long> modifiableList = new ArrayList<>(ids);
+        for(IssuedBooks issuedBook : issuedBooksList){
+            if (issuedBook.getBookId().getId() == bookIssued.getId()){
+                issuedBookRecord = issuedBook;
+                modifiableList.remove(Long.valueOf(issuedBook.getId()));
+                break;
+            }else {
+                return "Book is not issued to the user";
+            }
+        }
+
+        //check for overdue
+        checkOverDue(issuedBookRecord);
+        issuedBookRecord.setStatus("Returned");
+        issuedBooksRepository.save(issuedBookRecord);
+
+        //Increase the book quantity
+        bookIssued.setQuantity(bookIssued.getQuantity()+1);
+        bookRepository.save(bookIssued);
+
+        //Set Issued books ids in user after removing id of returned book
+        String issuedBooksIdsToUser = convertListToString(modifiableList);
+        user.setIssuedBooks(issuedBooksIdsToUser);
+        userRepository.save(user);
+
+        return "Book Returned Successfully";
+
+    }
+
 }
