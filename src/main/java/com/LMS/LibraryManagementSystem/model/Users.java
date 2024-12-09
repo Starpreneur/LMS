@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -24,7 +25,6 @@ public class Users {
     private String password;
     private String userType;
 
-    @OneToMany
-    @JoinColumn(name = "issued_id")
-    private List<IssuedBooks> issuedBooks;
+    @Column(name = "issued_books",nullable = false,columnDefinition = "varchar(255) default ''")
+    private String issuedBooks ;
 }

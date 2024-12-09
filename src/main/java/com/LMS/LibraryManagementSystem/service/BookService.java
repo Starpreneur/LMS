@@ -10,17 +10,13 @@ import com.LMS.LibraryManagementSystem.repository.BookRepository;
 import com.LMS.LibraryManagementSystem.repository.CategoriesRepository;
 import com.LMS.LibraryManagementSystem.repository.IssuedBooksRepository;
 import com.LMS.LibraryManagementSystem.repository.UserRepository;
-import com.fasterxml.jackson.annotation.OptBoolean;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -35,6 +31,7 @@ public class BookService {
 
     @Autowired
     UserRepository userRepository;
+
     @Autowired
     private IssuedBooksRepository issuedBooksRepository;
 
@@ -131,11 +128,21 @@ public class BookService {
         Users user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
 
         //Check if User has already maximum books assigned
-        if (user.getIssuedBooks().size() > 5)
+        String listOfIssuedBooks = user.getIssuedBooks();
+        List<Long> issuedBooks = convertStringToList(listOfIssuedBooks);
+        if (issuedBooks.size() > 5)
             return "User has already 5 books issued";
 
+
+        List<IssuedBooks> list = new ArrayList<>();
+        for (Long issuedBook : issuedBooks){
+           Optional<IssuedBooks> issuedBooks1 = issuedBooksRepository.findById(issuedBook);
+           if (issuedBooks1.isPresent()){
+               list.add(issuedBooks1.get());
+           }
+        }
+
         //Check for overDue or unpaid fine
-        List<IssuedBooks> list = user.getIssuedBooks();
         for (IssuedBooks issuedBook : list){
             boolean isOverDue = checkOverDue(issuedBook.getReturnDate(),issuedBook);
             if (isOverDue)
@@ -175,6 +182,11 @@ public class BookService {
        }
        return false;
     }
+//
+//    public List<Integer> returnIssuedBookIds(String issuedBooks){
+//
+//
+//    }
 
     public void addIssuedBook(IssuedBooks issuedBook,Book book,Users user){
         issuedBook.setBookId(book);
@@ -183,9 +195,50 @@ public class BookService {
         issuedBook.setReturnDate(LocalDate.now().plusDays(14));
         issuedBook.setStatus("Issued");
         issuedBook.setFine(0.0);
-
         book.setQuantity(book.getQuantity()-1);
         bookRepository.save(book);
-        issuedBooksRepository.save(issuedBook);
+        IssuedBooks saved = issuedBooksRepository.save(issuedBook);
+
+        long id = saved.getId();
+        List<Long> list = new ArrayList<>();
+        String toSave = user.getIssuedBooks();
+        if (user.getIssuedBooks().isEmpty()){
+            list.add(id);
+            toSave = convertListToString(list);
+            user.setIssuedBooks(toSave);
+            userRepository.save(user);
+        }else{
+            List<Long> listOdIds = convertStringToList(toSave);
+            list.addAll(listOdIds);
+            list.add(id);
+            toSave = convertListToString(list);
+            user.setIssuedBooks(toSave);
+            userRepository.save(user);
+        }
+
+    }
+
+    public static String convertListToString(List<Long> ids){
+        try {
+            return ids.stream()
+                    .map(String::valueOf)
+                    .collect(Collectors.joining(","));
+        }catch (Exception e){
+            System.out.println("Exception occurred : "+e.getMessage());
+        }
+        return "";
+    }
+
+    public static List<Long> convertStringToList(String str){
+        try {
+            String[] arr = str.split(",");
+            List<Long> listOfIds = Arrays.stream(arr)
+                    .map(Long::valueOf)
+                    .toList();
+            return listOfIds;
+        }catch (Exception e){
+            System.out.println("Exception occurred : "+e.getMessage());
+        }
+        return new ArrayList<>();
     }
 }
