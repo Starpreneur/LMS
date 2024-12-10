@@ -3,8 +3,6 @@ package com.LMS.LibraryManagementSystem.controller;
 import com.LMS.LibraryManagementSystem.DTO.BookDTO;
 import com.LMS.LibraryManagementSystem.DTO.Response.BookResponse;
 import com.LMS.LibraryManagementSystem.model.Book;
-import com.LMS.LibraryManagementSystem.model.Users;
-import com.LMS.LibraryManagementSystem.repository.BookRepository;
 import com.LMS.LibraryManagementSystem.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -36,13 +33,15 @@ public class BooksController {
         }
     }
 
-    @GetMapping("/findBookByName/{name}")
-    public ResponseEntity<BookResponse> findBookByName(@PathVariable String name,Model model){
-        BookResponse bookResponse = bookService.findBookByName(name);
+    @GetMapping("/findBookByName")
+    public String findBookByName(@RequestParam String bookName, Model model){
+        BookResponse bookResponse = bookService.findBookByName(bookName);
         if (bookResponse != null){
-            return new ResponseEntity<>(bookResponse,HttpStatus.OK);
+            model.addAttribute("book",bookResponse);
+            return "bookDetails";
         }else{
-            return new ResponseEntity<>(bookResponse,HttpStatus.INTERNAL_SERVER_ERROR);
+            model.addAttribute("error","Book not found");
+            return "searchBookByName";
         }
     }
 
@@ -57,12 +56,14 @@ public class BooksController {
     }
 
     @GetMapping("/findAllBooks")
-    public ResponseEntity<List<BookResponse>> findAllBooks(){
+    public String  findAllBooks(Model model){
         List<BookResponse> listOfAllBooks = bookService.findAllBooks();
         if (!listOfAllBooks.isEmpty()){
-            return new ResponseEntity<>(listOfAllBooks,HttpStatus.OK);
+            model.addAttribute("books",listOfAllBooks);
+            return "showAllBooks";
         }else {
-            return new ResponseEntity<>(listOfAllBooks,HttpStatus.INTERNAL_SERVER_ERROR);
+            model.addAttribute("error","Books not found");
+            return "home";
         }
     }
 

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search Book By Name</title>
+</head>
+<body>
+<h1>Please type the name of Book</h1>
+<form th:action="@{/api/v1/books/findBookByName}" method="get">
+    <label for="book">Book :</label>
+    <input type="text" id="book" name="bookName" required>
+    <br>
+    <button type="submit">Search</button>
+</form>
+</body>
+</html>>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Book List</title>
+</head>
+<body>
+<h1>List of All Books!</h1>
+<ul>
+    <li th:each="book : ${books}"><span th:text="${book.getName()}"></span><br></li>
+</ul>
+<div th:if="${error}">
+    <p style="color: red;" th:text="${error}"></p>
+</div>
+</body>
+</html>

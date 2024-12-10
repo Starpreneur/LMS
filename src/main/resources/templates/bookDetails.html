@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book Details</title>
+</head>
+<body>
+<h1>Book Info</h1>
+<p>
+    <strong>Title : </strong><span th:text="${book.getName()}"></span><br>
+    <strong>Author : </strong><span th:text="${book.getAuthor()}"></span><br>
+    <strong>Isbn : </strong><span th:text="${book.getIsbn()}"></span><br>
+    <strong>Category : </strong><span th:text="${book.getCategory()}"></span><br>
+    <strong>Number of Pages : </strong><span th:text="${book.getNumOfPages()}"></span><br>
+    <strong>Status : </strong><span th:text="${book.getStatus()}"></span><br>
+    <strong>Publisher : </strong><span th:text="${book.getPublisher()}"></span><br>
+    <strong>Language : </strong><span th:text="${book.getLanguage()}"></span><br>
+</p>
+<div th:if="${error}">
+    <p style="color: red;" th:text="${error}"></p>
+</div>
+</body>
+</html>
