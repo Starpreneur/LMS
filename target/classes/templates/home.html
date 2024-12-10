@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Home:Library Management System</title>
+</head>
+<body>
+<h1>Welcome, <span th:text="${userName}">User</span></h1>
+<ul>
+    <li>
+        <a th:href="@{/api/v1/home/seachBookByNamePage}">Search a Book</a>
+    </li>
+    <li>
+        <a th:href="@{/api/v1/home/showAllBooksPage}">Show All Books</a>
+    </li>
+    <li>
+        <a th:href="@{/api/v1/home/issueBooksPage}">Issue Book</a>
+    </li>
+    <li>
+        <a th:href="@{/api/v1/home/returnBookPage}">Return Book</a>
+    </li>
+</ul>
+</body>
+</html>

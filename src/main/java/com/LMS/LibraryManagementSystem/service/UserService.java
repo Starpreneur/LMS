@@ -36,4 +36,14 @@ public class UserService {
         return saved.orElseGet(Users::new);
     }
 
+    public boolean validateUser(String userName,String password){
+        Optional<Users> userOptional = userRepository.findByName(userName);
+        boolean isValid = false;
+        if (userOptional.isPresent()){
+            isValid = PasswordUtils.matches(password,userOptional.get().getPassword());
+        }else{
+            return false;
+        }
+        return isValid;
+    }
 }
