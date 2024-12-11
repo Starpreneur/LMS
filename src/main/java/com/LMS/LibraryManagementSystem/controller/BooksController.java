@@ -71,7 +71,7 @@ public class BooksController {
     public String issueBook(@RequestParam String emailId, @RequestParam String book, Model model){
         String bookIssuedMessage = bookService.issueBookService(emailId, book);
         model.addAttribute("message",bookIssuedMessage);
-        return "home";
+        return "issueBookMessage";
     }
 
 

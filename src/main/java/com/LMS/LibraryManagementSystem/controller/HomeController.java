@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/api/v1/home")
 public class HomeController {
 
+    @GetMapping("/returnHomePage")
+    public String returnHomePage(){
+        return "home";
+    }
+
     @GetMapping("/seachBookByNamePage")
     public String searchBookByNamePage(){
         return "searchBookByName";
