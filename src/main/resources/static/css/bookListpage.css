@@ -1,0 +1,64 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: url('/images/classicLibrary6.jpg') no-repeat center center fixed; /* Background image */
+    background-size: cover;
+    color: #fff; /* White text for better readability */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Header Styles */
+h1 {
+    font-size: 36px;
+    margin: 20px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Subtle shadow for visibility */
+    text-align: center;
+}
+
+/* List Styles */
+ul {
+    list-style-type: none; /* Removes default bullet points */
+    padding: 0;
+    margin: 20px 0;
+    width: 50%; /* Centers the list */
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background for better readability */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    overflow: auto; /* Handles overflow for large lists */
+}
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* Separator between list items */
+    color: #333; /* Darker text for readability */
+}
+
+li:last-child {
+    border-bottom: none; /* Removes border for the last item */
+}
+
+/* Error Message */
+div[th\\:if] p {
+                 color: red;
+                 font-size: 16px;
+                 margin-top: 10px;
+                 font-weight: bold;
+                 text-align: center;
+             }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    ul {
+        width: 90%; /* Adjust list width for smaller devices */
+    }
+
+    h1 {
+        font-size: 28px; /* Adjust header size for smaller screens */
+    }
+}

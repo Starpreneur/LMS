@@ -2,8 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Home:Library Management System</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/homePage.css}">
 </head>
 <body>
+<div class="container">
 <h1>Welcome, <span th:text="${userName}">User</span></h1>
 <ul>
     <li>
@@ -19,5 +21,6 @@
         <a th:href="@{/api/v1/home/returnBookPage}">Return Book</a>
     </li>
 </ul>
+</div>
 </body>
 </html>

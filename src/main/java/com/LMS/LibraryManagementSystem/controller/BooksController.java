@@ -3,6 +3,7 @@ package com.LMS.LibraryManagementSystem.controller;
 import com.LMS.LibraryManagementSystem.DTO.BookDTO;
 import com.LMS.LibraryManagementSystem.DTO.Response.BookResponse;
 import com.LMS.LibraryManagementSystem.model.Book;
+import com.LMS.LibraryManagementSystem.repository.BookRepository;
 import com.LMS.LibraryManagementSystem.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,9 @@ public class BooksController {
 
     @Autowired
     BookService bookService;
+
+    @Autowired
+    BookRepository bookRepository;
 
     @PostMapping("/addBook")
     public ResponseEntity<String> addBooks(@RequestBody List<BookDTO> bookList, Model model){

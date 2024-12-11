@@ -1,0 +1,56 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: url('/images/classicLibrary5.jpg') no-repeat center center fixed; /* Background image */
+    background-size: cover;
+    color: #fff; /* White text for readability */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Header Styles */
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Subtle shadow for better visibility */
+    text-align: center;
+}
+
+/* Paragraph Container */
+p {
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for text */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Shadow effect for depth */
+    width: 50%;
+    text-align: center;
+    color: #333; /* Dark text for better readability on white background */
+    line-height: 1.6;
+}
+
+/* Error Message */
+div[th\\:if] {
+    margin-top: 10px;
+}
+
+div[th\\:if] p {
+                 font-size: 16px;
+                 font-weight: bold;
+                 text-align: center;
+             }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    p {
+        width: 90%; /* Adjust paragraph width for smaller screens */
+    }
+
+    h1 {
+        font-size: 28px; /* Adjust header size for smaller devices */
+    }
+}
