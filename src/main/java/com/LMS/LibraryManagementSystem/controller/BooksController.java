@@ -6,6 +6,7 @@ import com.LMS.LibraryManagementSystem.model.Book;
 import com.LMS.LibraryManagementSystem.repository.BookRepository;
 import com.LMS.LibraryManagementSystem.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ public class BooksController {
     @Autowired
     BookRepository bookRepository;
 
+    @CacheEvict(value = "books", allEntries = true)
     @PostMapping("/addBook")
     public ResponseEntity<String> addBooks(@RequestBody List<BookDTO> bookList, Model model){
         if (!bookList.isEmpty()){

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Return Book</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bookIssueReturnMessagePage.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/returnBookPage.css}">
 </head>
 <body>
 <h1>Please Enter Details</h1>
@@ -11,7 +11,10 @@
     <input type="text" id="emailId" name="emailId" required>
     <br>
     <label for="book">Book : </label>
-    <input type="text" id="book" name="book" required>
+    <select id="book" name="book" required>
+        <option value="" selected disabled>Select a Book :</option>
+        <option th:each="book : ${bookList}" value="${book.name}" th:text="${book.name}"></option>
+    </select>
     <br>
     <button type="submit">Return</button>
 </form>

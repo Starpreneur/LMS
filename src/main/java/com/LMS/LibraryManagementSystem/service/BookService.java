@@ -11,6 +11,7 @@ import com.LMS.LibraryManagementSystem.repository.CategoriesRepository;
 import com.LMS.LibraryManagementSystem.repository.IssuedBooksRepository;
 import com.LMS.LibraryManagementSystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -34,6 +35,11 @@ public class BookService {
 
     @Autowired
     private IssuedBooksRepository issuedBooksRepository;
+
+    @Cacheable("books")
+    public List<Book> getAllBooks(){
+       return bookRepository.findAll();
+    }
 
     public List<Book> addBooks(List<BookDTO> bookList){
         List<Book> booksSaved = new ArrayList<>();

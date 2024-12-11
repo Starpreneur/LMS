@@ -1,7 +1,7 @@
 package com.LMS.LibraryManagementSystem.controller;
 
 import com.LMS.LibraryManagementSystem.model.Book;
-import com.LMS.LibraryManagementSystem.repository.BookRepository;
+import com.LMS.LibraryManagementSystem.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +15,7 @@ import java.util.List;
 public class HomeController {
 
     @Autowired
-    BookRepository bookRepository;
+    BookService bookService;
 
     @GetMapping("/returnHomePage")
     public String returnHomePage(){
@@ -34,13 +34,15 @@ public class HomeController {
 
     @GetMapping("issueBooksPage")
     public String issueBooksPage(Model model){
-        List<Book> bookList = bookRepository.findAll();
+        List<Book> bookList = bookService.getAllBooks();
         model.addAttribute("bookList",bookList);
         return "issueBooks";
     }
 
     @GetMapping("/returnBookPage")
-    public String returnBooksPage(){
+    public String returnBooksPage(Model model){
+        List<Book> bookList = bookService.getAllBooks();
+        model.addAttribute("bookList",bookList);
         return "returnBook";
     }
 }
