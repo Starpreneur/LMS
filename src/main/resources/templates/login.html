@@ -2,8 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <body>
+<div class="wrapper">
     <h1>Welcome to Library Management System!</h1>
     <h1>Please Login to continue</h1>
     <form th:action="@{/api/v1/login/userLogin}" method="post">
@@ -18,5 +20,7 @@
         <div th:if="${error}">
             <p style="color: red;" th:text="${error}"></p>
         </div>
+
+</div>
 </body>
 </html>

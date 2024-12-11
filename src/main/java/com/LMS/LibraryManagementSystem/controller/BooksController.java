@@ -71,7 +71,7 @@ public class BooksController {
     public String issueBook(@RequestParam String emailId, @RequestParam String book, Model model){
         String bookIssuedMessage = bookService.issueBookService(emailId, book);
         model.addAttribute("message",bookIssuedMessage);
-        return "issueBookMessage";
+        return "issue_returnBookMessage";
     }
 
 
@@ -79,7 +79,7 @@ public class BooksController {
     public String returnBook(@RequestParam String emailId,@RequestParam String book,Model model){
         String bookReturnedMessage = bookService.returnBook(emailId,book);
         model.addAttribute("message",bookReturnedMessage);
-        return "home";
+        return "issue_returnBookMessage";
     }
 
 }

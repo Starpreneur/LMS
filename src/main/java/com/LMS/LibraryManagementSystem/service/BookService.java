@@ -130,7 +130,7 @@ public class BookService {
         //Check if User has already maximum books assigned
         String listOfIssuedBooks = user.getIssuedBooks();
         List<Long> issuedBooks = convertStringToList(listOfIssuedBooks);
-        if (issuedBooks.size() > 5)
+        if (issuedBooks.size() >= 5)
             return "User has already 5 books issued";
 
         //fetch list of issued books to the user
@@ -267,15 +267,17 @@ public class BookService {
             issuedBooks1.ifPresent(issuedBooksList::add);
         }
         List<Long> modifiableList = new ArrayList<>(ids);
+        int count=0;
         for(IssuedBooks issuedBook : issuedBooksList){
             if (issuedBook.getBookId().getId() == bookIssued.getId()){
                 issuedBookRecord = issuedBook;
                 modifiableList.remove(Long.valueOf(issuedBook.getId()));
                 break;
-            }else {
-                return "Book is not issued to the user";
             }
+            count++;
         }
+        if (count >= issuedBooksList.size())
+            return "Book is not issued to the user";
 
         //check for overdue
         checkOverDue(issuedBookRecord);
