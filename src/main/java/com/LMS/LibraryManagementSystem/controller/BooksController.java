@@ -67,17 +67,19 @@ public class BooksController {
         }
     }
 
-    @PostMapping("/issueBook/{userId}/{bookName}")
-    public ResponseEntity<String> issueBook(@PathVariable Long userId,@PathVariable String bookName){
-        String bookIssuedMessage = bookService.issueBookService(userId,bookName);
-        return new ResponseEntity<>(bookIssuedMessage,HttpStatus.OK);
+    @PostMapping("/issueBook")
+    public String issueBook(@RequestParam String emailId, @RequestParam String book, Model model){
+        String bookIssuedMessage = bookService.issueBookService(emailId, book);
+        model.addAttribute("message",bookIssuedMessage);
+        return "home";
     }
 
 
-    @PostMapping("/returnBook/{userId}/{bookName}")
-    public ResponseEntity<String> returnBook(@PathVariable Long userId,@PathVariable String bookName){
-        String bookReturnedMessage = bookService.returnBook(userId,bookName);
-        return new ResponseEntity<>(bookReturnedMessage,HttpStatus.OK);
+    @PostMapping("/returnBook")
+    public String returnBook(@RequestParam String emailId,@RequestParam String book,Model model){
+        String bookReturnedMessage = bookService.returnBook(emailId,book);
+        model.addAttribute("message",bookReturnedMessage);
+        return "home";
     }
 
 }

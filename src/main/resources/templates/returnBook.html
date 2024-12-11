@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>Issue Book</title>
+    <title>Return Book</title>
 </head>
 <body>
-<h1>Please Enter the book</h1>
-<form th:action="@{/api/v1/books/issueBook}" method="post">
-    <label for="emailId">Email :</label>
+<h1>Please Enter Details</h1>
+<form th:action="@{/api/v1/books/returnBook}" method="post">
+    <label for="emailId">Email : </label>
     <input type="text" id="emailId" name="emailId" required>
     <br>
-    <label for="book">Book :</label>
+    <label for="book">Book : </label>
     <input type="text" id="book" name="book" required>
     <br>
-    <button type="submit">Issue</button>
+    <button type="submit">Return</button>
 </form>
 </body>
 </html>

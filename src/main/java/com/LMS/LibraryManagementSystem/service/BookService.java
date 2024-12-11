@@ -123,9 +123,9 @@ public class BookService {
         return listOfAllBooks;
     }
 
-    public String issueBookService(long userId,String book){
+    public String issueBookService(String email,String book){
         //Validate the User
-        Users user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
+        Users user = userRepository.findByEmailId(email).orElseThrow(RuntimeException::new);
 
         //Check if User has already maximum books assigned
         String listOfIssuedBooks = user.getIssuedBooks();
@@ -238,10 +238,10 @@ public class BookService {
         return new ArrayList<>();
     }
 
-    public String returnBook(long userId,String book){
+    public String returnBook(String emailId,String book){
 
         //validate the user
-        Optional<Users> usersOptional = userRepository.findById(userId);
+        Optional<Users> usersOptional = userRepository.findByEmailId(emailId);
         Users user = new Users();
         if (usersOptional.isPresent()){
            user = usersOptional.get();

@@ -25,6 +25,6 @@ public class HomeController {
 
     @GetMapping("/returnBookPage")
     public String returnBooksPage(){
-        return "returnBooks";
+        return "returnBook";
     }
 }
