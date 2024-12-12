@@ -1,6 +1,7 @@
 package com.LMS.LibraryManagementSystem.service;
 
 import com.LMS.LibraryManagementSystem.DTO.UsersDTO;
+import com.LMS.LibraryManagementSystem.DTO.ValidityResponse;
 import com.LMS.LibraryManagementSystem.model.Users;
 import com.LMS.LibraryManagementSystem.repository.UserRepository;
 import com.LMS.LibraryManagementSystem.utils.PasswordUtils;
@@ -36,14 +37,15 @@ public class UserService {
         return saved.orElseGet(Users::new);
     }
 
-    public boolean validateUser(String userName,String password){
+    public ValidityResponse validateUser(String userName,String password){
         Optional<Users> userOptional = userRepository.findByName(userName);
-        boolean isValid = false;
+        ValidityResponse validityResponse = new ValidityResponse();
         if (userOptional.isPresent()){
-            isValid = PasswordUtils.matches(password,userOptional.get().getPassword());
+            validityResponse.setValid(PasswordUtils.matches(password,userOptional.get().getPassword()));
+            validityResponse.setUsers(userOptional.get());
         }else{
-            return false;
+            return validityResponse;
         }
-        return isValid;
+        return validityResponse;
     }
 }

@@ -112,10 +112,9 @@ public class BookService {
         bookResponse.setStatus(book.getStatus());
     }
 
-    public List<BookResponse> findAllBooks(){
+    public List<BookResponse> findAllBooks(List<Book> books){
         List<BookResponse> listOfAllBooks = new ArrayList<>();
         try {
-            List<Book> books = bookRepository.findAll();
             if (!books.isEmpty()) {
                 books.forEach(book -> {
                     BookResponse bookResponse = new BookResponse();

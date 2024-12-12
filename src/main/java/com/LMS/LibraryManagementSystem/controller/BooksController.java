@@ -63,7 +63,8 @@ public class BooksController {
 
     @GetMapping("/findAllBooks")
     public String  findAllBooks(Model model){
-        List<BookResponse> listOfAllBooks = bookService.findAllBooks();
+        List<Book> books = bookService.getAllBooks();
+        List<BookResponse> listOfAllBooks = bookService.findAllBooks(books);
         if (!listOfAllBooks.isEmpty()){
             model.addAttribute("books",listOfAllBooks);
             return "showAllBooks";

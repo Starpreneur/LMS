@@ -2,6 +2,7 @@ package com.LMS.LibraryManagementSystem.controller;
 
 import com.LMS.LibraryManagementSystem.model.Book;
 import com.LMS.LibraryManagementSystem.service.BookService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,9 @@ public class HomeController {
     BookService bookService;
 
     @GetMapping("/returnHomePage")
-    public String returnHomePage(){
+    public String returnHomePage(HttpServletRequest request,Model model){
+        String userName = (String) request.getAttribute("userName");
+        model.addAttribute("userName",userName);
         return "home";
     }
 

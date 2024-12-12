@@ -13,7 +13,7 @@
     <label for="book">Book : </label>
     <select id="book" name="book" required>
         <option value="" selected disabled>Select a Book :</option>
-        <option th:each="book : ${bookList}" value="${book.name}" th:text="${book.name}"></option>
+        <option th:each="book : ${bookList}" th:value="${book.name}" th:text="${book.getName()}"></option>
     </select>
     <br>
     <button type="submit">Return</button>
