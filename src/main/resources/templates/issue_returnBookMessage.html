@@ -5,6 +5,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/bookIssueReturnMessagePage.css}">
 </head>
 <body>
+<header>
+    <a th:href="@{/api/logOut/userLogOut}" class="logout-button">Logout</a>
+</header>
 <p th:text="${message}"></p>
 <a th:href="@{/api/v1/home/returnHomePage}">Go back to home</a>
 </body>

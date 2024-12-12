@@ -1,4 +1,4 @@
-/* Global Styles */
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -12,6 +12,40 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    display: flex;
+    justify-content: flex-end; /* Align logout button to the right */
+    z-index: 1000; /* Ensure the header stays above other content */
+}
+
+.logout-button {
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+    background-color: rgba(220, 53, 69, 0.8); /* Semi-transparent red background */
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: rgba(220, 53, 69, 1); /* Solid red on hover */
+    transform: scale(1.1); /* Slight zoom effect */
+}
+
+.logout-button:active {
+    background-color: rgba(200, 35, 50, 1); /* Darker red on click */
+    transform: scale(0.95); /* Shrink effect on click */
+}
+
 
 /* Header Styles */
 h1 {
@@ -44,6 +78,30 @@ div[th\\:if] p {
                  text-align: center;
              }
 
+/* Home Page Link Styles */
+.home-link {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #007bff; /* Blue background */
+    color: #fff; /* White text */
+    text-decoration: none; /* No underline */
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+.home-link:hover {
+    background: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.home-link:active {
+    background: #004080; /* Even darker blue on click */
+    transform: scale(0.95); /* Shrink slightly on click */
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     p {
@@ -52,5 +110,15 @@ div[th\\:if] p {
 
     h1 {
         font-size: 28px; /* Adjust header size for smaller devices */
+    }
+
+    .home-link {
+        font-size: 16px; /* Adjust link size for smaller screens */
+        padding: 8px 16px; /* Adjust padding for smaller screens */
+    }
+
+    .logout-button {
+        font-size: 14px;
+        padding: 8px 16px; /* Adjust button size for smaller screens */
     }
 }

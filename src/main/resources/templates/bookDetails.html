@@ -5,6 +5,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/bookDetailStyle.css}">
 </head>
 <body>
+<header>
+    <a th:href="@{/api/logOut/userLogOut}" class="logout-button">Logout</a>
+</header>
 <h1>Book Info</h1>
 <p>
     <strong>Title : </strong><span th:text="${book.getName()}"></span><br>
@@ -19,5 +22,10 @@
 <div th:if="${error}">
     <p style="color: red;" th:text="${error}"></p>
 </div>
+
+<div>
+    <a th:href="@{/api/v1/home/returnHomePage}" class="home-link">Go Back to Home</a>
+</div>
+
 </body>
 </html>

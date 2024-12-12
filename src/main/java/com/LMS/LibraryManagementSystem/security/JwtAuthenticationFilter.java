@@ -32,12 +32,15 @@ public class JwtAuthenticationFilter implements Filter {
                         request.setAttribute("userRole",claims.get("userRole"));
                         break;
                     }catch (Exception e){
-                        response.sendRedirect("/showLogin");
+                        response.sendRedirect("/api/login/showLogin");
                         System.out.println(e.getMessage());
                         return;
                     }
                 }
             }
+        }else{
+            response.sendRedirect("/api/login/showLogin");
+            return;
         }
 
         filterChain.doFilter(request,response);

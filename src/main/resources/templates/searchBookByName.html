@@ -5,6 +5,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/searchBookByNamePage.css}">
 </head>
 <body>
+<header>
+    <a th:href="@{/api/logOut/userLogOut}" class="logout-button">Logout</a>
+</header>
 <h1>Please type the name of Book</h1>
 <form th:action="@{/api/v1/books/findBookByName}" method="get">
     <label for="book">Book :</label>

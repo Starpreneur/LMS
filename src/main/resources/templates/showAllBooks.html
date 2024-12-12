@@ -6,12 +6,19 @@
 
 </head>
 <body>
+<header>
+    <a th:href="@{/api/logOut/userLogOut}" class="logout-button">Logout</a>
+</header>
 <h1>List of All Books!</h1>
 <ul>
     <li th:each="book : ${books}"><span th:text="${book.getName()}"></span><br></li>
 </ul>
 <div th:if="${error}">
     <p style="color: red;" th:text="${error}"></p>
+</div>
+
+<div>
+    <a th:href="@{/api/v1/home/returnHomePage}">Home Page</a>
 </div>
 </body>
 </html>

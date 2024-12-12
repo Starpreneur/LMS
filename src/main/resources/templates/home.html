@@ -5,6 +5,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/homePage.css}">
 </head>
 <body>
+<header>
+    <a th:href="@{/api/logOut/userLogOut}" class="logout-button">Logout</a>
+</header>
 <div class="container">
 <h1>Welcome, <span th:text="${userName}">User</span></h1>
 <ul>

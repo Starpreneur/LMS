@@ -13,6 +13,39 @@ body {
     justify-content: flex-start;
 }
 
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    display: flex;
+    justify-content: flex-end; /* Align the logout button to the right */
+    z-index: 1000;
+}
+
+.logout-button {
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    background-color: rgba(220, 53, 69, 0.8); /* Transparent red background */
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: rgba(220, 53, 69, 1); /* Solid red on hover */
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.logout-button:active {
+    background-color: rgba(200, 35, 50, 1); /* Darker red on click */
+    transform: scale(0.95); /* Shrink effect on click */
+}
+
 /* Header Styles */
 h1 {
     font-size: 36px;

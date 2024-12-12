@@ -5,6 +5,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/issueBookPage.css}">
 </head>
 <body>
+<header>
+    <a th:href="@{/api/logOut/userLogOut}" class="logout-button">Logout</a>
+</header>
 <h1>Please Enter the book</h1>
 <form th:action="@{/api/v1/books/issueBook}" method="post">
     <label for="emailId">Email :</label>
