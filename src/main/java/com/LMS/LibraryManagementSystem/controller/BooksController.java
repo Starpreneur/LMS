@@ -5,6 +5,7 @@ import com.LMS.LibraryManagementSystem.DTO.Response.BookResponse;
 import com.LMS.LibraryManagementSystem.model.Book;
 import com.LMS.LibraryManagementSystem.repository.BookRepository;
 import com.LMS.LibraryManagementSystem.service.BookService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
@@ -75,7 +76,11 @@ public class BooksController {
     }
 
     @PostMapping("/issueBook")
-    public String issueBook(@RequestParam String emailId, @RequestParam String book, Model model){
+    public String issueBook(@RequestParam String emailId, @RequestParam String book, Model model, HttpServletRequest request){
+        if (!request.getAttribute("emailId").equals(emailId)){
+            model.addAttribute("message","Provided email does not match with user email");
+            return "issue_returnBookMessage";
+        }
         String bookIssuedMessage = bookService.issueBookService(emailId, book);
         model.addAttribute("message",bookIssuedMessage);
         return "issue_returnBookMessage";
@@ -83,7 +88,11 @@ public class BooksController {
 
 
     @PostMapping("/returnBook")
-    public String returnBook(@RequestParam String emailId,@RequestParam String book,Model model){
+    public String returnBook(@RequestParam String emailId,@RequestParam String book,Model model,HttpServletRequest request){
+        if (!request.getAttribute("emailId").equals(emailId)){
+            model.addAttribute("message","Provided email does not match with user email");
+            return "issue_returnBookMessage";
+        }
         String bookReturnedMessage = bookService.returnBook(emailId,book);
         model.addAttribute("message",bookReturnedMessage);
         return "issue_returnBookMessage";

@@ -30,6 +30,7 @@ public class JwtAuthenticationFilter implements Filter {
                         Claims claims = jwtService.validateToken(token);
                         request.setAttribute("userName",claims.get("userName"));
                         request.setAttribute("userRole",claims.get("userRole"));
+                        request.setAttribute("emailId",claims.get("emailId"));
                         break;
                     }catch (Exception e){
                         response.sendRedirect("/api/login/showLogin");
